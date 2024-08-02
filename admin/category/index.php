@@ -70,8 +70,8 @@
                     <td><?php echo $categoryKey + 1 ?> </td>
                     <td><?php echo $category['category'] ?> </td>
                     <td>
-                    <a href="edit.php?id=<?php echo $category['id']?>" class="btn btn-danger">Edit</a>
-                    <a href="delete.php?id=<?php echo $category['id'] ?>" class="btn btn-success">Delete</a>
+                    <a href="edit.php?id=<?php echo $category['id']?>" class="btn btn-success">Edit</a>
+                    <a href="delete.php?id=<?php echo $category['id'] ?>" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
                 <?php } ?>
