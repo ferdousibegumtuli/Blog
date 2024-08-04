@@ -24,9 +24,6 @@
     </div>
 </div>
 <?php
-    include('../layout/footer.php');
-?>
-<?php
 if(isset($_POST["submit"])){
     require ("../../controller/categoryController.php");
     $categoryName = $_POST["categoryname"];
@@ -37,8 +34,11 @@ if(isset($_POST["submit"])){
             'msg' => 'Category Add Successfully',
             'type' => 'success'
         ];
+        
     } 
-    header ("Location: index.php");
-
+    header ("Location: index.php");    
 }
+?>
+<?php
+    include('../layout/footer.php');
 ?>

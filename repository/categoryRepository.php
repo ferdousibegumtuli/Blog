@@ -1,45 +1,31 @@
 <?php
-require ($rootPath . "/config/DbConfig.php");
-class CategoryRepository{
-    private $connection = null;
-    function __construct()
-    {
-        $dbConfig = new Dbconfig();
-        $this->connection = $dbConfig->getConnection();
-    }
+require ($rootPath ."/repository/repository.php");
+class CategoryRepository extends Repository{
+    private const TABLE_NAME = 'categories';
 
     public function getAll() :array
     {
-        $sql = "SELECT *  FROM `categories`";
-        $prepareQuery = $this->connection->query($sql);
-        return $prepareQuery->fetchAll();
+        return $this->get('*', self::TABLE_NAME);
     }
-
 
     public function getByName(string $categoryName): bool 
     {
-        $sql = "INSERT INTO `categories` (`category`) VALUES ('$categoryName')";
-        return $this->connection->exec($sql);
+        return $this->insert(self::TABLE_NAME,'category',$categoryName);
     }
-
+ 
     public function getById(int $categoryId) :array
     {
-        $sql = "SELECT *  FROM `categories` WHERE id='$categoryId'";
-        $prepareQuery = $this->connection->query($sql);
-        return $prepareQuery->fetchAll();
+        return $this->store('*',self::TABLE_NAME,$categoryId);
     }
 
     public function getByIdAndName(string $categoryName,int $categoryId): bool {
-        $sql = "UPDATE `categories` SET `category` = '$categoryName' WHERE `id` = '$categoryId'";
-        $prepareSql = $this->connection->prepare($sql);
-        return $prepareSql->execute();
+       
+        return $this->update(self::TABLE_NAME, "`category` = '$categoryName'" ,$categoryId);
     }
 
     public function deleteById(int $categoryId): bool
     {
-        $sql = "DELETE FROM `categories` 
-                WHERE `id` = '$categoryId'";
-               return $this->connection->exec($sql);
+        return $this->delete(self::TABLE_NAME,$categoryId);
     }
 }
 ?>
