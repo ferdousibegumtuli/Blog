@@ -1,5 +1,5 @@
 <?php
-require ($rootPath ."/repository/repository.php");
+require_once ($rootPath ."/repository/repository.php");
 class CategoryRepository extends Repository{
     private const TABLE_NAME = 'categories';
 
@@ -10,12 +10,12 @@ class CategoryRepository extends Repository{
 
     public function getByName(string $categoryName): bool 
     {
-        return $this->insert(self::TABLE_NAME,'category',$categoryName);
+        return $this->insert(self::TABLE_NAME,'category',"'$categoryName'");
     }
  
-    public function getById(int $categoryId) :array
+    public function getCategory(int $categoryId) :array
     {
-        return $this->store('*',self::TABLE_NAME,$categoryId);
+        return $this->getById('*',self::TABLE_NAME,$categoryId);
     }
 
     public function getByIdAndName(string $categoryName,int $categoryId): bool {
@@ -27,5 +27,7 @@ class CategoryRepository extends Repository{
     {
         return $this->delete(self::TABLE_NAME,$categoryId);
     }
+
+    
 }
 ?>

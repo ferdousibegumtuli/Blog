@@ -1,5 +1,5 @@
 <?php
-require ($rootPath . "/repository/tagRepository.php");
+require_once ($rootPath . "/repository/tagRepository.php");
 class TagController {
     private $tagRepository = null;
     function __construct() {
@@ -16,9 +16,9 @@ class TagController {
        return $this->tagRepository->getByName($tagName);
     }
 
-    public function edit(int $tagId): array
+    public function getTagName(int $tagId): array
     {
-       return $this->tagRepository->getById($tagId);
+       return $this->tagRepository->getTag($tagId);
     }
 
     public function update(string $tagName,int $tagId): bool

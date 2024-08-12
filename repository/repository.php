@@ -1,5 +1,5 @@
 <?php
-require ($rootPath . "/config/DbConfig.php");
+require_once ($rootPath . "/config/DbConfig.php");
 class Repository{
     protected $connection = null;
     function __construct()
@@ -8,21 +8,21 @@ class Repository{
         $this->connection = $dbConfig->getConnection();
     }
 
-    public function get(string $tableName,string $columnName) :array
+    public function get(string $columnName,string $tableName) :array
     {
-        $sql = "SELECT $tableName  FROM `$columnName`";
+        $sql = "SELECT $columnName  FROM `$tableName`";
         $prepareQuery = $this->connection->query($sql);
         return $prepareQuery->fetchAll();
     }
 
 
-    public function insert(string $tabelName, string $columnName, string $value): bool 
+    public function insert(string $tableName, string $columnName, string $value): bool 
     {
-        $sql = "INSERT INTO `$tabelName` ($columnName) VALUES ('$value')";
+        $sql = "INSERT INTO `$tableName` ($columnName) VALUES ($value)";
         return $this->connection->exec($sql);
     }
 
-    public function store(string $tableName, string $columnName, int $idName) :array
+    public function getById(string $tableName, string $columnName, int $idName) :array
     {
         $sql = "SELECT $tableName  FROM `$columnName` WHERE id='$idName'";
         $prepareQuery = $this->connection->query($sql);
@@ -42,5 +42,6 @@ class Repository{
                 WHERE `id` = '$idName'";
                return $this->connection->exec($sql);
     }
+
 }
 ?>

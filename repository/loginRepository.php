@@ -1,5 +1,5 @@
 <?php
-require ("../config/DbConfig.php");
+require_once($rootPath . "/config/DbConfig.php");
 
 class LoginRepository{
     private $connection = null;

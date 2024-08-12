@@ -1,6 +1,19 @@
 <?php
     include('../layout/header.php');
     include('../layout/sidebar.php');
+    if(isset($_POST["submit"])){
+    require_once ("../../controller/tagController.php");
+    $tagName = $_POST["tagname"];
+    $tagController = new TagController();
+    $tagIsSaved = $tagController->insert($tagName);
+        if($tagIsSaved){
+            $_SESSION['addData'] = [
+                'msg' => 'Tag Add Successfully',
+                'type' => 'success'
+            ];
+        } 
+        header ("Location:index.php");
+}
 ?>
 <div id="main">
     <h4 class="card-title">TAG</h4>
@@ -23,22 +36,7 @@
         </form>
     </div>
 </div>
-<?php
-if(isset($_POST["submit"])){
-    require ("../../controller/tagController.php");
-    $tagName = $_POST["tagname"];
-    $tagController = new TagController();
-    $tagIsSaved = $tagController->insert($tagName);
-    if($tagIsSaved){
-        $_SESSION['addData'] = [
-            'msg' => 'Tag Add Successfully',
-            'type' => 'success'
-        ];
-    } 
-    header ("Location: index.php");
 
-}
-?>
 <?php
     include('../layout/footer.php');
 ?>

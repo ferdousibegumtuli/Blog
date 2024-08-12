@@ -1,5 +1,5 @@
 <?php
-require ($rootPath . "/repository/categoryRepository.php");
+require_once ($rootPath . "/repository/categoryRepository.php");
 class CategoryController {
     private $categoryRepository = null;
     function __construct() {
@@ -16,9 +16,9 @@ class CategoryController {
        return $this->categoryRepository->getByName($categoryName);
     }
 
-    public function edit(int $categoryId): array
+    public function getCategoryName(int $categoryId): array
     {
-       return $this->categoryRepository->getById($categoryId);
+       return $this->categoryRepository->getCategory($categoryId);
     }
 
     public function update(string $categoryName,int $categoryId): bool
@@ -30,8 +30,5 @@ class CategoryController {
     {
        return $this->categoryRepository->deleteById($categoryId);
     }
-
-
-
 }
 ?>

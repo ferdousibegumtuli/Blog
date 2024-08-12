@@ -1,5 +1,5 @@
 <?php
-require ($rootPath ."/repository/repository.php");
+require_once ($rootPath ."/repository/repository.php");
 class TagRepository extends Repository{
     private const TABLE_NAME = 'tags';
 
@@ -10,12 +10,12 @@ class TagRepository extends Repository{
 
     public function getByName(string $tagName): bool 
     {
-        return $this->insert(self::TABLE_NAME,'tag',$tagName);
+        return $this->insert(self::TABLE_NAME,'tag',"'$tagName'");
     }
  
-    public function getById(int $tagId) :array
+    public function getTag(int $tagId) :array
     {
-        return $this->store('*',self::TABLE_NAME,$tagId);
+        return $this->getById('*',self::TABLE_NAME,$tagId);
     }
 
     public function getByIdAndName(string $tagName,int $tagId): bool {

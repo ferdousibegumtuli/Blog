@@ -1,6 +1,6 @@
 <?php
-include('../layout/header.php');
-require($rootPath . '/controller/tagController.php');
+    include('../layout/header.php');
+    require($rootPath . '/controller/tagController.php');
 ?>
 <?php
     include('../layout/footer.php');

@@ -60,7 +60,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>CATEGORY</th>
+                    <th>TAG</th>
                     <th>ACTION</th>
                 </tr>
             </thead>

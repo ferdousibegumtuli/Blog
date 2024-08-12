@@ -7,7 +7,7 @@
 if(isset($_GET['id'])){
     $categoryId = $_GET['id'];
     $categoryController = new CategoryController();
-    $categoryGetById = $categoryController->edit($categoryId);
+    $categoryGetById = $categoryController->getCategoryName($categoryId);
 }
 if(isset($_POST['submit'])){
     $categoryId = $_GET['id'];

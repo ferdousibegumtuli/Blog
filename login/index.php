@@ -62,12 +62,17 @@
 <?php
 
 if (isset($_POST['login'])){
-    require ("../controller/loginController.php");
+    require_once ("../controller/loginController.php");
     $userName = $_POST['username'];
     $password = $_POST['password'];
     $loginController = new LoginController();
     $userAndPasswordIsCheck = $loginController->login($userName, $password);
     if($userAndPasswordIsCheck){
+      $_SESSION['user']=[
+            $userAndPasswordIsCheck
+        ];
+        //print_r($userAndPasswordIsCheck);
+        //die();
          header ("Location: ../admin");
     }else{
         $_SESSION['message']=[

@@ -1,6 +1,20 @@
 <?php
     include('../layout/header.php');
     include('../layout/sidebar.php');
+    if(isset($_POST["submit"])){
+    require_once ("../../controller/categoryController.php");
+    $categoryName = $_POST["categoryname"];
+    $categoryController = new CategoryController();
+    $categoryIsSaved = $categoryController->insert($categoryName);
+        if($categoryIsSaved){
+            $_SESSION['addData'] = [
+                'msg' => 'Category Add Successfully',
+                'type' => 'success'
+            ];
+            
+        } 
+        header ("Location: index.php");    
+    }
 ?>
 <div id="main">
     <h4 class="card-title">CATEGORIES</h4>
@@ -14,7 +28,6 @@
                             <input type="text" id="first-name-vertical" class="form-control" name="categoryname" placeholder="Category Name">
                         </div>
                     </div>
-                    
                     <div class="col-12 d-flex justify-content-end">
                         <input type="submit" class="btn btn-primary me-1 mb-1" name="submit" value="Submit"/>
                     </div>
@@ -24,21 +37,5 @@
     </div>
 </div>
 <?php
-if(isset($_POST["submit"])){
-    require ("../../controller/categoryController.php");
-    $categoryName = $_POST["categoryname"];
-    $categoryController = new CategoryController();
-    $categoryIsSaved = $categoryController->insert($categoryName);
-    if($categoryIsSaved){
-        $_SESSION['addData'] = [
-            'msg' => 'Category Add Successfully',
-            'type' => 'success'
-        ];
-        
-    } 
-    header ("Location: index.php");    
-}
-?>
-<?php
-    include('../layout/footer.php');
+    include_once('../layout/footer.php');
 ?>
