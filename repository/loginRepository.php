@@ -1,5 +1,5 @@
 <?php
-require_once($rootPath . "/config/DbConfig.php");
+require_once("../config/DbConfig.php");
 
 class LoginRepository{
     private $connection = null;
@@ -14,6 +14,4 @@ class LoginRepository{
         return $prepareQuery->fetchAll();    
     }
 }
-
-
 ?>

@@ -64,5 +64,15 @@ class ArticleController{
         return 'Draft';
     }
 
+    public function getStatusByPublishedId():array
+    {
+        return $this->articleRepository->getStatusPublished();
+    }
+
+    public function getStatusByDraftId():array
+    {
+        return $this->articleRepository->getStatusDraft();
+    }
+
 }
 ?>

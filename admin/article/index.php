@@ -4,7 +4,6 @@
     require_once($rootPath . '/controller/articleController.php');
     require_once($rootPath . '/controller/categoryController.php');
     require_once($rootPath . '/controller/tagController.php');
-    require($rootPath . '/controller/loginController.php');
     require_once($rootPath . '/controller/userController.php');
     $userController = new UserController();
     $tagController = new TagController();

@@ -1,5 +1,5 @@
 <?php
-require_once($rootPath . "/repository/loginRepository.php");
+require_once("../repository/loginRepository.php");
 class LoginController{
     private $loginRepository = null;
     function __construct()

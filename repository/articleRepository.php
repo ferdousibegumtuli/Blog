@@ -53,6 +53,16 @@ class ArticleRepository extends Repository{
         return $this->delete(self::TABLE_NAME,$articleId);
     }
 
+    public function getStatusPublished():array
+    {
+        return $this->getByStatusId('COUNT(*)',self::TABLE_NAME,1);
+    }
+
+    public function getStatusDraft():array
+    {
+        return $this->getByStatusId('COUNT(*)',self::TABLE_NAME,0);
+    }
+
 }
 
 ?>
