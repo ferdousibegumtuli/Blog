@@ -3,12 +3,15 @@
     if($_SESSION['user'])
     {
     include('../layout/sidebar.php');
-    require($rootPath . '/controller/tagController.php');
-    $getAllFromDb = new TagController();
-    $tags = $getAllFromDb->index();
+    require($rootPath . '/controller/userController.php');
+    $getAllFromDb = new UserController();
+    $users = $getAllFromDb->index();
+    // echo "<pre>";
+    // print_r($users);
+    // die();
 ?>
-    <div id="main">
-        <div class="col-md-6">
+<div id="main">
+    <div class="col-md-6">
         <?php 
         if(isset($_SESSION['addData']))
         {
@@ -61,25 +64,29 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>TAG</th>
+                        <th>USER NAME</th>
+                        <th>USER FULL NAME</th>
+                        <th>STATUS</th>
                         <th>ACTION</th>
                     </tr>
                 </thead>
                 <body>
-                <?php foreach ($tags as $tagKey => $tag) { ?>
+                <?php foreach ($users as $userKey => $user) { ?>
                     <tr>
-                        <td><?php echo $tagKey + 1 ?> </td>
-                        <td><?php echo $tag['tag'] ?> </td>
+                        <td><?php echo $userKey + 1 ?> </td>
+                        <td><?php echo $user['user_name'] ?> </td>
+                        <td><?php echo $user['full_name'] ?> </td>
+                        <td><?php echo $user['status'] ?> </td>
                         <td>
-                        <a href="edit.php?id=<?php echo $tag['id']?>" class="btn btn-success">Edit</a>
-                        <a href="delete.php?id=<?php echo $tag['id'] ?>" class="btn btn-danger">Delete</a>
+                        <a href="edit.php?id=<?php echo $user['id']?>" class="btn btn-success">Edit</a>
+                        <a href="delete.php?id=<?php echo $user['id'] ?>" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                     <?php } ?>
                 </body>
             </table>
-        </div>
     </div>
+</div>
 <?php
     include('../layout/footer.php');
 }

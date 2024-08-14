@@ -1,5 +1,7 @@
 <?php
-    include('../layout/header.php');
+include('../layout/header.php');
+if($_SESSION['user'])
+{
     require($rootPath . '/controller/articleController.php');
 ?>
 
@@ -19,4 +21,9 @@ if(isset($_GET['id'])){
 ?>
 <?php
     include('../layout/footer.php');
+}
+else
+{
+    header("location:../login/index.php");
+}
 ?>

@@ -63,6 +63,13 @@ class ArticleRepository extends Repository{
         return $this->getByStatusId('COUNT(*)',self::TABLE_NAME,0);
     }
 
+    public function getId() :array
+    {
+        $sql = "SELECT *  FROM `". self::TABLE_NAME. "` ORDER BY `id` DESC LIMIT 3";
+        $prepareQuery = $this->connection->query($sql);
+        return $prepareQuery->fetchAll();
+    }
+
 }
 
 ?>

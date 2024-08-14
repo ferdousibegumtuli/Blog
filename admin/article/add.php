@@ -1,5 +1,7 @@
 <?php
-    include('../layout/header.php');
+include('../layout/header.php');
+if($_SESSION['user'])
+{
     include('../layout/sidebar.php');
 ?>
 <?php
@@ -120,5 +122,10 @@
     </form>
 </div>
 <?php
-    include('../layout/footer.php');
+include('../layout/footer.php');
+}
+else
+{
+    header("location:../login/index.php");
+}
 ?>

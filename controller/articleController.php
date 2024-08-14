@@ -74,5 +74,10 @@ class ArticleController{
         return $this->articleRepository->getStatusDraft();
     }
 
+    public function getDESCId():array
+    {
+        return $this->articleRepository->getId();
+    }
+
 }
 ?>

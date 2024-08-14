@@ -1,5 +1,7 @@
 <?php
-    include('../layout/header.php');
+include('../layout/header.php');
+if($_SESSION['user'])
+{
     include('../layout/sidebar.php');
     require_once($rootPath . '/controller/articleController.php');
     require_once($rootPath . '/controller/categoryController.php');
@@ -103,4 +105,9 @@
     </div>
 <?php
     include('../layout/footer.php');
+}
+else
+{
+    header("location:../login/index.php");
+}
 ?>

@@ -1,17 +1,26 @@
-
 <?php
 include('layout/header.php');
+if($_SESSION['user'])
+{
 include('layout/sidebar.php');
-require($rootPath . '/controller/categoryController.php');
+require_once($rootPath . '/controller/categoryController.php');
     $getAllFromDb = new CategoryController();
     $categories = $getAllFromDb->index();
-require($rootPath . '/controller/tagController.php');
+require_once($rootPath . '/controller/tagController.php');
     $getAllFromDb = new TagController();
     $tags = $getAllFromDb->index();
 require_once($rootPath . '/controller/articleController.php');
     $articleController = new ArticleController();
     $publishedStatus = $articleController->getStatusByPublishedId();
     $draftStatus = $articleController->getStatusByDraftId();
+    $articles = $articleController->index();
+    $articleId = $articleController->getDESCId();
+require_once($rootPath . '/controller/userController.php');
+    $getAllFromDb = new UserController();
+    $users = $getAllFromDb->index();
+require_once($rootPath . '/controller/userController.php');
+    $userController = new UserController();
+       
 ?>
 <div id="main">
 <header class="mb-3">
@@ -38,7 +47,7 @@ require_once($rootPath . '/controller/articleController.php');
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Category</h6>
-                                    <h6 class="font-extrabold mb-0"><?php echo "Total Category:" . count($categories);?></h6>
+                                    <h6 class="font-extrabold mb-0"><?php echo count($categories);?></h6>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +64,7 @@ require_once($rootPath . '/controller/articleController.php');
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Tag</h6>
-                                    <h6 class="font-extrabold mb-0"><?php echo "Total Tag:" . count($tags);?></h6>
+                                    <h6 class="font-extrabold mb-0"><?php echo count($tags);?></h6>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +81,7 @@ require_once($rootPath . '/controller/articleController.php');
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Draft Blog</h6>
-                                    <h6 class="font-extrabold mb-0"><?php echo "Total published:" .$draftStatus[0][0];?></h6>
+                                    <h6 class="font-extrabold mb-0"><?php echo $draftStatus[0][0];?></h6>
                                 </div>
                             </div>
                         </div>
@@ -88,8 +97,8 @@ require_once($rootPath . '/controller/articleController.php');
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">published Blog</h6>
-                                    <h6 class="font-extrabold mb-0"><?php echo "Total published:" .$publishedStatus[0][0];?></h6>
+                                    <h6 class="text-muted font-semibold">Published Blog</h6>
+                                    <h6 class="font-extrabold mb-0"><?php echo  $publishedStatus[0][0];?></h6>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +117,7 @@ require_once($rootPath . '/controller/articleController.php');
                     </div>
                 </div>
             </div>
-            <div class="row">action = "add.php" method ="post"
+            <div class="row">
                 <div class="col-12 col-xl-4">
                     <div class="card">
                         <div class="card-header">
@@ -227,19 +236,18 @@ require_once($rootPath . '/controller/articleController.php');
             <div class="card">
                 <div class="card-body py-4 px-5">
                     <div class="d-flex align-items-center">
-                        <div class="avatar avatar-xl">
-                            <img src="assets/images/faces/1.jpg" alt="Face 1">
-                        </div>
                         <div class="ms-3 name">
-                            <h5 class="font-bold">John Duck</h5>
-                            <h6 class="text-muted mb-0">@johnducky</h6>
+                            <h5 class="font-bold"></h5>
+                            <h6 class="text-muted mb-0">WELCOME<br><br>
+                            <?php echo ($_SESSION['user'][0][0]['full_name']);?>
+                        </h6>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h4>Recent Messages</h4>
+                    <h4>Recent Article</h4>
                 </div>
                 <div class="card-content pb-4">
                     <div class="recent-message d-flex px-4 py-3">
@@ -247,8 +255,11 @@ require_once($rootPath . '/controller/articleController.php');
                             <img src="assets/images/faces/4.jpg">
                         </div>
                         <div class="name ms-4">
-                            <h5 class="mb-1">Hank Schrader</h5>
-                            <h6 class="text-muted mb-0">@johnducky</h6>
+                            <h5 class="mb-1"><?php echo $articleId[0]['title'] ?></h5>
+                            <h6 class="text-muted mb-0">
+                                <?php $user = $userController->getUserName($articleId[0]['user_id']);
+                                echo ($user[0]['full_name']); ?>
+                            </h6>
                         </div>
                     </div>
                     <div class="recent-message d-flex px-4 py-3">
@@ -256,8 +267,11 @@ require_once($rootPath . '/controller/articleController.php');
                             <img src="assets/images/faces/5.jpg">
                         </div>
                         <div class="name ms-4">
-                            <h5 class="mb-1">Dean Winchester</h5>
-                            <h6 class="text-muted mb-0">@imdean</h6>
+                            <h5 class="mb-1"><?php echo $articleId[1]['title'] ?></h5>
+                            <h6 class="text-muted mb-0">
+                            <?php $user = $userController->getUserName($articleId[1]['user_id']);
+                                echo ($user[0]['full_name']); ?>
+                            </h6>
                         </div>
                     </div>
                     <div class="recent-message d-flex px-4 py-3">
@@ -265,13 +279,12 @@ require_once($rootPath . '/controller/articleController.php');
                             <img src="assets/images/faces/1.jpg">
                         </div>
                         <div class="name ms-4">
-                            <h5 class="mb-1">John Dodol</h5>
-                            <h6 class="text-muted mb-0">@dodoljohn</h6>
+                            <h5 class="mb-1"><?php echo $articleId[2]['title'] ?></h5>
+                            <h6 class="text-muted mb-0">
+                            <?php $user = $userController->getUserName($articleId[2]['user_id']);
+                                echo ($user[0]['full_name']); ?>
+                            </h6>
                         </div>
-                    </div>
-                    <div class="px-4">
-                        <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
-                            Conversation</button>
                     </div>
                 </div>
             </div>
@@ -301,4 +314,9 @@ require_once($rootPath . '/controller/articleController.php');
 </div>
 <?php
 include('layout/footer.php');
+}
+else
+{
+    header("location:../login/index.php");
+}
 ?>

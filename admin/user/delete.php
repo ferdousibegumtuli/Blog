@@ -2,15 +2,15 @@
 include('../layout/header.php');
 if($_SESSION['user'])
 {
-require($rootPath . '/controller/categoryController.php');
+require($rootPath . '/controller/userController.php');
 include('../layout/footer.php');
     if(isset($_GET['id'])){
-        $categoryId = $_GET['id'];
-        $categoryController = new CategoryController();
-        $categoryIsDelete = $categoryController->delete($categoryId);
-        if($categoryIsDelete){
+        $userId = $_GET['id'];
+        $userController = new UserController();
+        $userIsDelete = $userController->delete($userId);
+        if($userIsDelete){
             $_SESSION['deleteData'] = [
-                'msg' => 'Category Delete Successfully',
+                'msg' => 'User Delete Successfully',
                 'type' => 'success'
             ];
         } 

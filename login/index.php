@@ -71,9 +71,7 @@ if (isset($_POST['login'])){
       $_SESSION['user']=[
             $userAndPasswordIsCheck
         ];
-        //print_r($userAndPasswordIsCheck);
-        //die();
-         header ("Location: ../admin");
+        header ("Location: ../admin");
     }else{
         $_SESSION['message']=[
             'msg' => 'Credential is not correct.',
