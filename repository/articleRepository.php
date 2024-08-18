@@ -1,0 +1,76 @@
+<?php
+require_once ($rootPath ."/repository/repository.php");
+class ArticleRepository extends Repository{
+    private const TABLE_NAME = 'articles';
+    public function getFromDb() :array
+    {
+        return $this->get(
+            '*',self::TABLE_NAME                 
+        );
+    }
+
+    public function storeData(
+        string $subject,
+        string $article,
+        ?string $publishedAt,
+        int $category,
+        int $tag,
+        int $status,
+        string $targetFile
+    ): bool
+    {
+        $userId = $_SESSION['user'][0][0]['id'];
+        return $this->insert(
+            self::TABLE_NAME,
+            '`user_id`,`title`,`description`,`published_at`,`category_id`,`tag_id`,`status`,`image`',
+            "'$userId','$subject','$article', $publishedAt,'$category','$tag','$status','$targetFile'"
+        );
+    }
+
+    public function getArticle(int $articleId) :array
+    {
+        return $this->getById('*',self::TABLE_NAME,$articleId);
+    }
+
+    public function getByDb(
+        int $articleId,
+        string $subject,
+        int $category,
+        int $tag,
+        string $article,
+        int $status,
+        ?string $publishedAt,
+    ): bool {
+        $userId = $_SESSION['user'][0][0]['id'];
+        return $this->update(
+            self::TABLE_NAME,
+            "`user_id` = '$userId',`title` = '$subject',`description` = '$article',`published_at` = $publishedAt,`category_id` = '$category',`tag_id` = '$tag',`status` = '$status'" ,
+            $articleId
+        );
+    }
+
+    public function deleteById(int $articleId): bool
+    {
+        return $this->delete(self::TABLE_NAME,$articleId);
+    }
+
+    public function getStatusPublished():array
+    {
+        return $this->getByStatusId('COUNT(*)',self::TABLE_NAME,1);
+    }
+
+    public function getStatusDraft():array
+    {
+        return $this->getByStatusId('COUNT(*)',self::TABLE_NAME,0);
+    }
+
+    public function getId() :array
+    {
+        $sql = "SELECT *  FROM `". self::TABLE_NAME. "` ORDER BY `id` DESC LIMIT 4";
+        $prepareQuery = $this->connection->query($sql);
+        return $prepareQuery->fetchAll();
+    }
+
+}
+
+?>
