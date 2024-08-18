@@ -5,13 +5,16 @@ require($rootPath . '/controller/tagController.php');
 require_once($rootPath . '/controller/articleController.php');
     $articleController = new ArticleController();
     $articleId = $articleController->getLimitId();
+    // echo "<pre>";
+    // print_r($articleId);
     $getAllFromDb = new TagController();
     $tags = $getAllFromDb->index();
+    //if !empty()
 ?>
 <div class="container-fluid paddding mb-5">
     <div class="row mx-0">
         <div class="col-md-6 col-12 paddding animate-box fadeIn animated-fast" data-animate-effect="fadeIn">
-            <div class="fh5co_suceefh5co_height"><?php echo $articleId[0]['description'] ?>
+            <div class="fh5co_suceefh5co_height"><img src="<?php echo $baseUrl . $articleId[0]['image'] ?>" alt="img">
                 <div class="fh5co_suceefh5co_height_position_absolute"></div>
                 <div class="fh5co_suceefh5co_height_position_absolute_font">
                     <div class=""><a href="#" class="color_fff"> <?php echo $articleId[0]['published_at'] ?>
@@ -23,7 +26,7 @@ require_once($rootPath . '/controller/articleController.php');
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6 col-6 paddding animate-box fadeIn animated-fast" data-animate-effect="fadeIn">
-                    <div class="fh5co_suceefh5co_height_2"><?php echo $articleId[0]['description'] ?>
+                    <div class="fh5co_suceefh5co_height_2"><img src="<?php echo $baseUrl . $articleId[0]['image'] ?>" alt="img">
                         <div class="fh5co_suceefh5co_height_position_absolute"></div>
                         <div class="fh5co_suceefh5co_height_position_absolute_font_2">
                             <div class=""><a href="#" class="color_fff"><?php echo $articleId[0]['published_at'] ?>
@@ -33,7 +36,7 @@ require_once($rootPath . '/controller/articleController.php');
                     </div>
                 </div>
                 <div class="col-md-6 col-6 paddding animate-box fadeIn animated-fast" data-animate-effect="fadeIn">
-                    <div class="fh5co_suceefh5co_height_2"><?php echo $articleId[1]['description'] ?>
+                    <div class="fh5co_suceefh5co_height_2"><img src="<?php echo $baseUrl . $articleId[1]['image'] ?>" alt="img">
                         <div class="fh5co_suceefh5co_height_position_absolute"></div>
                         <div class="fh5co_suceefh5co_height_position_absolute_font_2">
                             <div class=""><a href="#" class="color_fff"><?php echo $articleId[1]['published_at'] ?></a></div>
@@ -42,7 +45,7 @@ require_once($rootPath . '/controller/articleController.php');
                     </div>
                 </div>
                 <div class="col-md-6 col-6 paddding animate-box fadeIn animated-fast" data-animate-effect="fadeIn">
-                    <div class="fh5co_suceefh5co_height_2"><?php echo $articleId[2]['description'] ?>
+                    <div class="fh5co_suceefh5co_height_2"><img src="<?php echo $baseUrl . $articleId[2]['image'] ?>" alt="img">
                         <div class="fh5co_suceefh5co_height_position_absolute"></div>
                         <div class="fh5co_suceefh5co_height_position_absolute_font_2">
                             <div class=""><a href="#" class="color_fff"> <?php echo $articleId[2]['published_at'] ?>
@@ -52,7 +55,7 @@ require_once($rootPath . '/controller/articleController.php');
                     </div>
                 </div>
                 <div class="col-md-6 col-6 paddding animate-box fadeIn animated-fast" data-animate-effect="fadeIn">
-                    <div class="fh5co_suceefh5co_height_2"><?php echo $articleId[3]['description'] ?>
+                    <div class="fh5co_suceefh5co_height_2"><img src="<?php echo $baseUrl . $articleId[3]['image'] ?>" alt="img">
                         <div class="fh5co_suceefh5co_height_position_absolute"></div>
                         <div class="fh5co_suceefh5co_height_position_absolute_font_2">
                             <div class=""><a href="#" class="color_fff"><?php echo $articleId[3]['published_at'] ?>

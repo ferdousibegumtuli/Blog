@@ -16,8 +16,6 @@ if(isset($_GET['id'])){
     $articleId = $_GET['id'];
     $articleController = new ArticleController();
     $articleGetById = $articleController->edit($articleId);
-    // echo "<pre>";
-    // print_r ($articleGetById);
 }
 if(isset($_POST['submit'])){
     $articleId = $_GET['id'];
