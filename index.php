@@ -5,8 +5,6 @@ require($rootPath . '/controller/tagController.php');
 require_once($rootPath . '/controller/articleController.php');
     $articleController = new ArticleController();
     $articleId = $articleController->getLimitId();
-    // echo "<pre>";
-    // print_r($articleId);
     $getAllFromDb = new TagController();
     $tags = $getAllFromDb->index();
 ?>
