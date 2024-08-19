@@ -80,5 +80,15 @@ class ArticleController{
         return $this->articleRepository->getId();
     }
 
+    public function getLimitedId():array
+    {
+        return $this->articleRepository->getIdList();
+    }
+
+    public function getByCategoryId(int $categoryId):array
+    {
+        return $this->articleRepository->getArticles($categoryId);
+    }
+
 }
 ?>

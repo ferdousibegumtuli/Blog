@@ -71,6 +71,19 @@ class ArticleRepository extends Repository{
         return $prepareQuery->fetchAll();
     }
 
+    public function getIDList() :array
+    {
+        $sql = "SELECT *  FROM `". self::TABLE_NAME. "` ORDER BY `id` ASC LIMIT 4";
+        $prepareQuery = $this->connection->query($sql);
+        return $prepareQuery->fetchAll();
+    }
+
+    public function getArticles($categoryId):array
+    {
+        return $this->get('*',self::TABLE_NAME,$categoryId);
+    }
+
+
 }
 
 ?>
