@@ -126,43 +126,18 @@ require_once($rootPath . '/controller/userController.php');
                 <div class="card-header">
                     <h4>Recent Article</h4>
                 </div>
+                <?php foreach ($articleId as $articleKey => $article) { ?>
                 <div class="card-content pb-4">
                     <div class="recent-message d-flex px-4 py-3">
                         <div class="name ms-4">
-                            <h5 class="mb-1"><?php echo $articleId[0]['title'] ?></h5>
+                            <h5 class="mb-1"><?php echo $article['title'] ?></h5>
                             <h6 class="text-muted mb-0">
-                                <?php $user = $userController->getUserName($articleId[0]['user_id']);
+                                <?php $user = $userController->getUserName($article['user_id']);
                                 echo ($user[0]['full_name']); ?>
                             </h6>
                         </div>
                     </div>
-                    <div class="recent-message d-flex px-4 py-3">    
-                        <div class="name ms-4">
-                            <h5 class="mb-1"><?php echo $articleId[1]['title'] ?></h5>
-                            <h6 class="text-muted mb-0">
-                            <?php $user = $userController->getUserName($articleId[1]['user_id']);
-                                echo ($user[0]['full_name']); ?>
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="name ms-4">
-                            <h5 class="mb-1"><?php echo $articleId[2]['title'] ?></h5>
-                            <h6 class="text-muted mb-0">
-                            <?php $user = $userController->getUserName($articleId[2]['user_id']);
-                                echo ($user[0]['full_name']); ?>
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="recent-message d-flex px-4 py-3">    
-                        <div class="name ms-4">
-                            <h5 class="mb-1"><?php echo $articleId[3]['title'] ?></h5>
-                            <h6 class="text-muted mb-0">
-                            <?php $user = $userController->getUserName($articleId[3]['user_id']);
-                                echo ($user[0]['full_name']); ?>
-                            </h6>
-                        </div>
-                    </div>
+                <?php } ?>   
                 </div>
             </div>
         </div>
