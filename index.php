@@ -6,8 +6,8 @@ require_once($rootPath . '/controller/articleController.php');
     $articleController = new ArticleController();
     $articleId = $articleController->getLimitId();
     $articleLimitId = $articleController->getLimitedId();
-    $getAllFromDb = new TagController();
-    $tags = $getAllFromDb->index();
+    $tagController = new TagController();
+    $tags = $tagController->index();
     require_once($rootPath . '/controller/userController.php');
     $userController = new UserController();
 ?>
@@ -100,7 +100,7 @@ require_once($rootPath . '/controller/articleController.php');
                             <?php  $user = $userController->getUserName($article['user_id']);
                                echo $user[0]['full_name']?> -
                             <?php echo $article['published_at'] ?> </a>
-                        <div class="fh5co_consectetur"><?php echo substr($article['description'], 0, 250); ?>
+                        <div class="fh5co_consectetur"><?php echo substr($article['description'], 0, 250). ". . . . . ."; ?>
                         </div>
                     </div>
                 <?php } ?>

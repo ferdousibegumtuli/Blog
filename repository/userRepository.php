@@ -2,7 +2,7 @@
 require_once ($rootPath ."/repository/repository.php");
 class UserRepository extends Repository{
     private const TABLE_NAME = 'users';
-    public function getFromDb($userId):array
+    public function getFromDb(int $userId):array
     {
         return $this->getByID('*',self::TABLE_NAME,$userId);
     }

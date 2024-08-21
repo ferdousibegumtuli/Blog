@@ -10,13 +10,13 @@
                     </li>
 
 
-                    <?php foreach ($categories as $categoryKey => $category) { ?>
+                    <?php
+                    foreach ($categories as $categoryKey => $category) { ?>
                     <li class="nav-item ">
-                        <a class="nav-link" href="<?php echo $baseUrl ?>/frontend/frontendPage/categoryPage.php"><?php echo $category['category'] ?><span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="<?php echo $baseUrl ?>/frontend/frontendPage/categoryPage.php?category_id=<?php echo $category['id']?>">
+                            <?php echo $category['category'] ?><span class="sr-only">(current)</span></a>
                     </li>
                     <?php } ?>
-
-
                 </ul>
             </div>
         </nav>

@@ -85,9 +85,9 @@ class ArticleController{
         return $this->articleRepository->getIdList();
     }
 
-    public function getByCategoryId(int $categoryId):array
+    public function getByCategoryId(int $categoriesId):array
     {
-        return $this->articleRepository->getArticles($categoryId);
+        return $this->articleRepository->getArticlesByCategoryId($categoriesId);
     }
 
 }

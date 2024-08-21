@@ -78,9 +78,12 @@ class ArticleRepository extends Repository{
         return $prepareQuery->fetchAll();
     }
 
-    public function getArticles($categoryId):array
+    public function getArticlesByCategoryId(int $categoriesId):array
     {
-        return $this->get('*',self::TABLE_NAME,$categoryId);
+       
+        $sql = "SELECT * FROM ". self::TABLE_NAME. " WHERE `category_id`='$categoriesId'";
+        $prepareQuery = $this->connection->query($sql);
+        return $prepareQuery->fetchAll(); 
     }
 
 
