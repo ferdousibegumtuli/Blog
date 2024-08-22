@@ -8,7 +8,7 @@
         if(isset($_GET['category_id'])){
             $categoriesId = $_GET['category_id'];
             $articleController = new ArticleController();
-            $articleLimitId = $articleController->getLimitedId();
+            $articleLimitId = $articleController->getLimitArticle($categoriesId);
             $articleGetByCategoryId = $articleController->getByCategoryId($categoriesId);
             // echo "<pre>";
             // print_r($articleGetByCategoryId);
@@ -21,7 +21,7 @@
         <div class="row mx-0">
             <div class="col-md-8 animate-box fadeInLeft animated-fast" data-animate-effect="fadeInLeft">
                 <div>
-                    <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">article</div>
+                    <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Article</div>
                 </div>
                 <?php foreach ($articleGetByCategoryId as $articleKey => $article) { ?>
                 <div class="row pb-4">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="col-md-7 animate-box fadeInUp animated-fast">
-                        <a href="single.html" class="fh5co_magna py-2"><?php echo $article['title']?></a> <a href="#" class="fh5co_mini_time py-3">
+                        <a href="<?php echo $baseUrl ?>/frontend/frontendPage/singlePage.php?article_id=<?php echo $article['id']?>" class="fh5co_magna py-2"><?php echo $article['title']?></a> <a href="#" class="fh5co_mini_time py-3">
                         <?php  $user = $userController->getUserName($article['user_id']);
                             echo $user[0]['full_name']?> - <?php echo $article['published_at']?> </a>
                         <div class="fh5co_consectetur"><?php echo substr($article['description'], 0, 250,).'. . . . .';?>
@@ -48,7 +48,7 @@
                 <div class="clearfix"></div>
                 <?php foreach ($tags as $tagKey => $tag) { ?>
                 <div class="fh5co_tags_all">
-                    <a href="#" class="fh5co_tagg"><?php echo $tag['tag'] ?></a>
+                    <a href="#" class="fh5co_tagg"><?php echo $tag['tag']?></a>
                 </div>
                 <?php } ?>
                 <div>

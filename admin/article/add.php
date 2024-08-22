@@ -2,7 +2,7 @@
 include('../layout/header.php');
 if($_SESSION['user'])
 {
-    include('../layout/sidebar.php');
+    //include('../layout/sidebar.php');
     require_once ("../../controller/articleController.php");
     require_once($rootPath . '/controller/categoryController.php');
     require_once($rootPath . '/controller/tagController.php');

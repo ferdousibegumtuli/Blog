@@ -20,7 +20,7 @@ require_once($rootPath . '/controller/articleController.php');
                 <div class="fh5co_suceefh5co_height_position_absolute_font">
                     <div class=""><a href="#" class="color_fff"> <?php echo $articleId[0]['published_at'] ?>
                     </a></div>
-                    <div class=""><a href="single.html" class="fh5co_good_font"> <?php echo $articleId[0]['title'] ?> </a></div>
+                    <div class=""><a href="<?php echo $baseUrl ?>/frontend/frontendPage/singlePage.php?article_id=<?php echo $articleId[0]['id']?>" class="fh5co_good_font"> <?php echo $articleId[0]['title'] ?> </a></div>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@ require_once($rootPath . '/controller/articleController.php');
                         <div class="fh5co_suceefh5co_height_position_absolute_font_2">
                             <div class=""><a href="#" class="color_fff"><?php echo $articleId[0]['published_at'] ?>
                             </a></div>
-                            <div class=""><a href="single.html" class="fh5co_good_font_2"><?php echo $articleId[0]['title'] ?></a></div>
+                            <div class=""><a href="<?php echo $baseUrl ?>/frontend/frontendPage/singlePage.php?article_id=<?php echo $articleId[0]['id']?>" class="fh5co_good_font_2"><?php echo $articleId[0]['title'] ?></a></div>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@ require_once($rootPath . '/controller/articleController.php');
                         <div class="fh5co_suceefh5co_height_position_absolute"></div>
                         <div class="fh5co_suceefh5co_height_position_absolute_font_2">
                             <div class=""><a href="#" class="color_fff"><?php echo $articleId[1]['published_at'] ?></a></div>
-                            <div class=""><a href="single.html" class="fh5co_good_font_2"> <?php echo $articleId[1]['title'] ?></a></div>
+                            <div class=""><a href="<?php echo $baseUrl ?>/frontend/frontendPage/singlePage.php?article_id=<?php echo $articleId[1]['id']?>" class="fh5co_good_font_2"> <?php echo $articleId[1]['title'] ?></a></div>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ require_once($rootPath . '/controller/articleController.php');
                         <div class="fh5co_suceefh5co_height_position_absolute_font_2">
                             <div class=""><a href="#" class="color_fff"> <?php echo $articleId[2]['published_at'] ?>
                             </a></div>
-                            <div class=""><a href="single.html" class="fh5co_good_font_2"> <?php echo $articleId[2]['title'] ?> </a></div>
+                            <div class=""><a href="<?php echo $baseUrl ?>/frontend/frontendPage/singlePage.php?article_id=<?php echo $articleId[2]['id']?>" class="fh5co_good_font_2"> <?php echo $articleId[2]['title'] ?> </a></div>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@ require_once($rootPath . '/controller/articleController.php');
                         <div class="fh5co_suceefh5co_height_position_absolute_font_2">
                             <div class=""><a href="#" class="color_fff"><?php echo $articleId[3]['published_at'] ?>
                             </a></div>
-                            <div class=""><a href="single.html" class="fh5co_good_font_2"> <?php echo $articleId[3]['title'] ?> </a></div>
+                            <div class=""><a href="<?php echo $baseUrl ?>/frontend/frontendPage/singlePage.php?article_id=<?php echo $articleId[3]['id']?>"  class="fh5co_good_font_2"> <?php echo $articleId[3]['title'] ?> </a></div>
                         </div>
                     </div>
                 </div>
@@ -95,8 +95,8 @@ require_once($rootPath . '/controller/articleController.php');
                         </div>
                     </div>
                     <div class="col-md-7 animate-box">
-                        <a href="single.html" class="fh5co_magna py-2"><?php echo $article['title'] ?></a>
-                        <a href="single.html" class="fh5co_mini_time py-3">
+                        <a href="<?php echo $baseUrl ?>/frontend/frontendPage/singlePage.php?article_id=<?php echo $article['id']?>" class="fh5co_magna py-2"><?php echo $article['title'] ?></a>
+                        <a href="<?php echo $baseUrl ?>/frontend/frontendPage/singlePage.php?article_id=<?php echo $article['id']?>" class="fh5co_mini_time py-3">
                             <?php  $user = $userController->getUserName($article['user_id']);
                                echo $user[0]['full_name']?> -
                             <?php echo $article['published_at'] ?> </a>

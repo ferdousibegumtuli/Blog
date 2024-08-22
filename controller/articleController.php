@@ -90,5 +90,15 @@ class ArticleController{
         return $this->articleRepository->getArticlesByCategoryId($categoriesId);
     }
 
+    public function getLimitArticle(int $categoriesId):array
+    {
+        return $this->articleRepository->getLimitArticlesByCategoryId($categoriesId);
+    }
+
+    public function getByArticleId(int $articleId):array
+    {
+        return $this->articleRepository->getArticleByArticleId($articleId);
+    }
+
 }
 ?>

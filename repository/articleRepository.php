@@ -86,6 +86,20 @@ class ArticleRepository extends Repository{
         return $prepareQuery->fetchAll(); 
     }
 
+    public function getLimitArticlesByCategoryId(int $categoriesId):array
+    {
+       
+        $sql = "SELECT * FROM ". self::TABLE_NAME. " WHERE `category_id`='$categoriesId'LIMIT 4";
+        $prepareQuery = $this->connection->query($sql);
+        return $prepareQuery->fetchAll(); 
+    }
+
+    public function getArticleByArticleId(int $articleId) :array
+    {
+        return $this->getById('*',self::TABLE_NAME,$articleId);
+    }
+
+
 
 }
 
