@@ -33,7 +33,7 @@
                 <?php foreach ($tags as $tagKey => $tag) { ?>
                 <div class="clearfix"></div>
                 <div class="fh5co_tags_all">
-                    <a href="#" class="fh5co_tagg"><?php echo $tag['tag']?></a>
+                    <a href="<?php echo $baseUrl ?>/frontend/frontendPage/tagPage.php?tag_id=<?php echo $tag['id']?>" class="fh5co_tagg"><?php echo $tag['tag']?></a>
                 </div>
                 <?php } ?>
                 <div>

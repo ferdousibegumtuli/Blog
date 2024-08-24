@@ -5,13 +5,11 @@
         $tagController = new TagController();
         $tags = $tagController->index();
     require_once($rootPath . '/controller/articleController.php');
-        if(isset($_GET['category_id'])){
-            $categoriesId = $_GET['category_id'];
+        if(isset($_GET['tag_id'])){
+            $tagId = $_GET['tag_id'];
             $articleController = new ArticleController();
-            $articleLimitId = $articleController->getLimitArticle($categoriesId);
-            $articleGetByCategoryId = $articleController->getByCategoryId($categoriesId);
-            // echo "<pre>";
-            // print_r($articleGetByCategoryId);
+            $articleGetByTagId = $articleController->getByTagId($tagId);
+            $articles = $articleController->getLimitId();
         }
     require_once($rootPath . '/controller/userController.php');
     $userController = new UserController();
@@ -23,7 +21,7 @@
                 <div>
                     <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Article</div>
                 </div>
-                <?php foreach ($articleGetByCategoryId as $articleKey => $article) { ?>
+                <?php foreach ($articleGetByTagId as $articleKey => $article) { ?>
                 <div class="row pb-4">
                     <div class="col-md-5">
                         <div class="fh5co_hover_news_img">
@@ -48,14 +46,14 @@
                 <div class="clearfix"></div>
                 <?php foreach ($tags as $tagKey => $tag) { ?>
                 <div class="fh5co_tags_all">
-                    <a href="<?php echo $baseUrl ?>/frontend/frontendPage/tagPage.php?tag_id=<?php echo $tag['id']?>" class="fh5co_tagg"><?php echo $tag['tag']?></a>
+                    <a href="<?php echo $baseUrl ?>/frontend/frontendPage/tagPage.php?tag_id=<?php echo $tag['id'] ?>" class="fh5co_tagg"><?php echo $tag['tag']?></a>
                 </div>
                 <?php } ?>
                 <div>
                     <div class="fh5co_heading fh5co_heading_border_bottom pt-3 py-2 mb-4">Most Popular</div>
                 </div>
                 <div class="row pb-3">
-                <?php foreach ($articleLimitId as $articleKey => $article) { ?>
+                <?php foreach ($articles as $articleKey => $article) { ?>
                     <div class="col-5 align-self-center">
                         <img src="<?php echo $baseUrl . $article['image'] ?>" alt="img" class="fh5co_most_trading">
                     </div>
@@ -81,4 +79,3 @@
 </div>
 <?php
     include('../layout/footer.php');
-?>

@@ -99,6 +99,14 @@ class ArticleRepository extends Repository{
         return $this->getById('*',self::TABLE_NAME,$articleId);
     }
 
+    public function getArticleByTagId(int $tagId):array
+    {
+       
+        $sql = "SELECT * FROM ". self::TABLE_NAME. " WHERE `tag_id`='$tagId'";
+        $prepareQuery = $this->connection->query($sql);
+        return $prepareQuery->fetchAll(); 
+    }
+
 
 
 }

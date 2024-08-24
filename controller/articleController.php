@@ -100,5 +100,10 @@ class ArticleController{
         return $this->articleRepository->getArticleByArticleId($articleId);
     }
 
+    public function getByTagId(int $tagId):array
+    {
+        return $this->articleRepository->getArticleByTagId($tagId);
+    }
+
 }
 ?>

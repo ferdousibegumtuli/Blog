@@ -106,8 +106,7 @@ if(isset($_POST['submit'])){
         </div>
         <div class="col-md-6">
             <div class="mb-3">
-                <input class="form-control" type="file" id="formFile">
-            </div>
+                <input class="form-control" type="file" id="formFile" value = "<?php echo $baseUrl . $articleGetById[0]['image']?>">  
         </div>
         <div class="col-md-6">
             <div class="form-group row align-items-center">
