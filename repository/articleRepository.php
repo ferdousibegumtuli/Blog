@@ -32,19 +32,20 @@ class ArticleRepository extends Repository{
         return $this->getById('*',self::TABLE_NAME,$articleId);
     }
 
-    public function getByDb(
+    public function updateData(
         int $articleId,
         string $subject,
         int $category,
         int $tag,
         string $article,
         int $status,
-        ?string $publishedAt,
+        string $targetFile,
+        ?string $publishedAt
     ): bool {
         $userId = $_SESSION['user'][0][0]['id'];
         return $this->update(
             self::TABLE_NAME,
-            "`user_id` = '$userId',`title` = '$subject',`description` = '$article',`published_at` = $publishedAt,`category_id` = '$category',`tag_id` = '$tag',`status` = '$status'" ,
+            "`user_id` = '$userId',`title` = '$subject',`description` = '$article',`published_at` = $publishedAt,`category_id` = '$category',`tag_id` = '$tag',`image`= '$targetFile',`status` = '$status'" ,
             $articleId
         );
     }

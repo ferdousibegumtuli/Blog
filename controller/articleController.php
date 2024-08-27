@@ -39,7 +39,8 @@ class ArticleController{
         int $category,
         int $tag,
         string $article,
-        int $status
+        int $status,
+        string $targetFile
     ): bool
     {
         $publishedAt = 'null';
@@ -48,7 +49,7 @@ class ArticleController{
             $publishedAt = date('Y-m-d h:i:s');    
             $publishedAt = "'$publishedAt'";    
         }
-       return $this->articleRepository->getByDb($articleId,$subject,$category,$tag,$article,$status,$publishedAt);
+       return $this->articleRepository->updateData($articleId,$subject,$category,$tag,$article,$status,$targetFile,$publishedAt);
     }
 
     public function delete(int $articleId): bool

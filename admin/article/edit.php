@@ -2,20 +2,24 @@
 include('../layout/header.php');
 if($_SESSION['user'])
 {
-    include('../layout/sidebar.php');
+    //include('../layout/sidebar.php');
     require_once($rootPath . '/controller/articleController.php');
     require_once($rootPath . '/controller/categoryController.php');
     require_once($rootPath . '/controller/tagController.php');
-    ?>
-<?php
+    require_once ("../../controller/stringController.php");
+
 $categoryController = new CategoryController();
 $categories = $categoryController->index();
 $tagController = new TagController();
 $tags = $tagController->index();
+$stringController = new StringController();
 if(isset($_GET['id'])){
     $articleId = $_GET['id'];
     $articleController = new ArticleController();
     $articleGetById = $articleController->edit($articleId);
+    //  print_r($rootPath .$articleGetById[0]['image']);
+    //  unlink($rootPath .$articleGetById[0]['image']);
+
 }
 if(isset($_POST['submit'])){
     $articleId = $_GET['id'];
@@ -24,19 +28,55 @@ if(isset($_POST['submit'])){
     $tag = $_POST['tagId'];
     $article = $_POST['description'];
     $status = $_POST['status'];
-    $articleIsUpdate = $articleController->update($articleId,$subject,$category,$tag,$article,$status); 
-    if($articleIsUpdate){
-        $_SESSION['editData'] = [
-            'msg' => 'Article Edit Successfully',
-            'type' => 'success'
-        ];
-    } 
+    $image = $_POST['image'];
+    echo $rootPath .$image;
+
+    $targetFile = $image;
+    // print_r($_FILES["articleImage"]);
+    // die();
+    if($_FILES["articleImage"]["tmp_name"]){
+        $fileUploadLocation =  '/public/assets/images/fileUpload/';
+        $n = 5;
+        $randomString = $stringController->getRandomString($n);
+        $targetFile = $fileUploadLocation . ($randomString) .'.jpg';
+        // echo (file_exists($rootPath .$image));
+        // die();
+        if (file_exists($rootPath .$image))  
+        { 
+            unlink ($rootPath .$image); 
+        } 
+        
+    }
+  
+    $articleIsUpdate = $articleController->update($articleId,$subject,$category,$tag,$article,$status,$targetFile);
+        if($articleIsUpdate){
+            $_SESSION['editData'] = [
+                'msg' => 'Article Edit Successfully',
+                'type' => 'success'
+            ];
+            if($_FILES["articleImage"]["tmp_name"])
+            {
+               
+                $tempName = $_FILES["articleImage"]["tmp_name"];
+                move_uploaded_file($tempName, $rootPath .$targetFile);
+            }
+        } 
         header ("Location: index.php");
 }
 ?>
 <div id="main">
-<form action = "edit.php?id=<?php echo $articleGetById[0]['id']?>" method = "post">
+<form action = "edit.php?id=<?php echo $articleGetById[0]['id']?>" method = "post"  enctype="multipart/form-data">
     <h4 class="card-title">Article</h4>
+    <div class="col-md-6">
+            <div class="form-group row align-items-center">
+                <div class="col-lg-2 col-3">
+                    <label class="col-form-label">image</label>
+                </div>
+                <div class="col-lg-10 col-9">
+                    <input type="text" id="first-name" class="form-control" name="image" placeholder="Enter Subject" value="<?php echo $articleGetById[0]['image']?>">
+                </div>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="form-group row align-items-center">
                 <div class="col-lg-2 col-3">
@@ -106,8 +146,8 @@ if(isset($_POST['submit'])){
         </div>
         <div class="col-md-6">
             <div class="mb-3">
-                <input class="form-control" type="file" id="formFile" value = "<?php echo $baseUrl . $articleGetById[0]['image']?>">  
-        </div>
+                <input class="form-control" type="file" name="articleImage" id="formFile">  
+            </div>
         <div class="col-md-6">
             <div class="form-group row align-items-center">
                 <div class="col-lg-2 col-3">

@@ -2,7 +2,7 @@
 include('../layout/header.php');
 if($_SESSION['user'])
 {
-    //include('../layout/sidebar.php');
+    include('../layout/sidebar.php');
     require_once ("../../controller/articleController.php");
     require_once($rootPath . '/controller/categoryController.php');
     require_once($rootPath . '/controller/tagController.php');
@@ -12,28 +12,41 @@ if($_SESSION['user'])
     $tagController = new TagController();
     $tags = $tagController->index();
     $stringController = new StringController();
-    $n = 5;
-    $randomString = $stringController->getRandomString($n);
-    $fileUpload =  '/public/assets/images/fileUpload/';
+    
     if(isset($_POST["submit"])){
         $subject = $_POST["titleName"];
         $category = $_POST["categoryId"];
         $tag = $_POST["tagId"];
         $article = $_POST["description"];
         $status = $_POST["status"];
-        $targetFile = $fileUpload . ($randomString) .'.jpg';
         $articleController = new ArticleController();
-        $articleIsSaved = $articleController->insert($subject,$article,$category,$tag,$status,$targetFile);
+        $targetFile = '';
+        if($_FILES["articleImage"]["tmp_name"])
+        {
+            $fileUploadLocation =  '/public/assets/images/fileUpload/';
+            $n = 5;
+            $randomString = $stringController->getRandomString($n);
+            $targetFile = $fileUploadLocation . ($randomString) .'.jpg';
 
-        $tempName = $_FILES["articleImage"]["tmp_name"];
+             //delete existing file
+          
+        }
+        $articleIsSaved = $articleController->insert($subject,$article,$category,$tag,$status,$targetFile);
         if($articleIsSaved){
             $_SESSION['addData'] = [
                 'msg' => 'Article Add Successfully',
                 'type' => 'success'
             ];
-            move_uploaded_file($tempName, $rootPath .$targetFile);
+
+            if($_FILES["articleImage"]["tmp_name"])
+            {
+               
+                $tempName = $_FILES["articleImage"]["tmp_name"];
+                move_uploaded_file($tempName, $rootPath .$targetFile);
+            }
+           
         }  
-        header ("Location: index.php"); 
+        header ("Location: index.php");
     } 
 ?>
 <div id="main">
