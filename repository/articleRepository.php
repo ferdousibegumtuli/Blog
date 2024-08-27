@@ -57,17 +57,23 @@ class ArticleRepository extends Repository{
 
     public function getStatusPublished():array
     {
-        return $this->getByStatusId('COUNT(*)',self::TABLE_NAME,1);
+
+        $sql = "SELECT COUNT(*) FROM `". self::TABLE_NAME."` WHERE `status`='1'";
+        $prepareQuery = $this->connection->query($sql);
+        return $prepareQuery->fetchAll();
+
     }
 
     public function getStatusDraft():array
     {
-        return $this->getByStatusId('COUNT(*)',self::TABLE_NAME,0);
+        $sql = "SELECT COUNT(*) FROM `". self::TABLE_NAME."` WHERE `status`='0'";
+        $prepareQuery = $this->connection->query($sql);
+        return $prepareQuery->fetchAll();
     }
 
     public function getId() :array
     {
-        $sql = "SELECT *  FROM `". self::TABLE_NAME. "` ORDER BY `id` DESC LIMIT 4";
+        $sql = "SELECT *  FROM `". self::TABLE_NAME."` ORDER BY `id` DESC LIMIT 4";
         $prepareQuery = $this->connection->query($sql);
         return $prepareQuery->fetchAll();
     }
@@ -79,10 +85,10 @@ class ArticleRepository extends Repository{
         return $prepareQuery->fetchAll();
     }
 
-    public function getArticlesByCategoryId(int $categoriesId):array
+    public function getArticlesByCategoryId(int $categoriesId, int $offset):array
     {
-       
-        $sql = "SELECT * FROM ". self::TABLE_NAME. " WHERE `category_id`='$categoriesId'";
+        $offset = (($offset - 1) * 4);
+        $sql = "SELECT * FROM ". self::TABLE_NAME. " WHERE `category_id`='$categoriesId' LIMIT 4 OFFSET $offset";
         $prepareQuery = $this->connection->query($sql);
         return $prepareQuery->fetchAll(); 
     }
@@ -108,6 +114,14 @@ class ArticleRepository extends Repository{
         return $prepareQuery->fetchAll(); 
     }
 
+    public function totalArticle(int $categoriesId):array
+    {
+
+        $sql = "SELECT COUNT(*) FROM `". self::TABLE_NAME."` WHERE `category_id`='$categoriesId' ";
+        $prepareQuery = $this->connection->query($sql);
+        return $prepareQuery->fetchAll();
+
+    }
 
 
 }

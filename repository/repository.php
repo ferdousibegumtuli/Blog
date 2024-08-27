@@ -43,12 +43,5 @@ class Repository{
                return $this->connection->exec($sql);
     }
 
-    public function getByStatusId(string $columnName, string $tableName, int $idName) :array
-    {
-        $sql = "SELECT $columnName  FROM `$tableName` WHERE `status`='$idName'";
-        $prepareQuery = $this->connection->query($sql);
-        return $prepareQuery->fetchAll();
-    }
-
 }
 ?>

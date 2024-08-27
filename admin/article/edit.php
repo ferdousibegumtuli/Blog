@@ -17,8 +17,7 @@ if(isset($_GET['id'])){
     $articleId = $_GET['id'];
     $articleController = new ArticleController();
     $articleGetById = $articleController->edit($articleId);
-    //  print_r($rootPath .$articleGetById[0]['image']);
-    //  unlink($rootPath .$articleGetById[0]['image']);
+    
 
 }
 if(isset($_POST['submit'])){
@@ -28,26 +27,19 @@ if(isset($_POST['submit'])){
     $tag = $_POST['tagId'];
     $article = $_POST['description'];
     $status = $_POST['status'];
-    $image = $_POST['image'];
-    echo $rootPath .$image;
-
+    $image = $articleGetById[0]['image'];
     $targetFile = $image;
-    // print_r($_FILES["articleImage"]);
-    // die();
+
     if($_FILES["articleImage"]["tmp_name"]){
         $fileUploadLocation =  '/public/assets/images/fileUpload/';
         $n = 5;
         $randomString = $stringController->getRandomString($n);
         $targetFile = $fileUploadLocation . ($randomString) .'.jpg';
-        // echo (file_exists($rootPath .$image));
-        // die();
         if (file_exists($rootPath .$image))  
         { 
             unlink ($rootPath .$image); 
-        } 
-        
+        }    
     }
-  
     $articleIsUpdate = $articleController->update($articleId,$subject,$category,$tag,$article,$status,$targetFile);
         if($articleIsUpdate){
             $_SESSION['editData'] = [
@@ -67,16 +59,6 @@ if(isset($_POST['submit'])){
 <div id="main">
 <form action = "edit.php?id=<?php echo $articleGetById[0]['id']?>" method = "post"  enctype="multipart/form-data">
     <h4 class="card-title">Article</h4>
-    <div class="col-md-6">
-            <div class="form-group row align-items-center">
-                <div class="col-lg-2 col-3">
-                    <label class="col-form-label">image</label>
-                </div>
-                <div class="col-lg-10 col-9">
-                    <input type="text" id="first-name" class="form-control" name="image" placeholder="Enter Subject" value="<?php echo $articleGetById[0]['image']?>">
-                </div>
-            </div>
-        </div>
         <div class="col-md-6">
             <div class="form-group row align-items-center">
                 <div class="col-lg-2 col-3">

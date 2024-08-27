@@ -7,14 +7,17 @@
     require_once($rootPath . '/controller/articleController.php');
         if(isset($_GET['category_id'])){
             $categoriesId = $_GET['category_id'];
+            $offset = $_GET['offset'] ?? 1;
             $articleController = new ArticleController();
-            $articleLimitId = $articleController->getLimitArticle($categoriesId);
-            $articleGetByCategoryId = $articleController->getByCategoryId($categoriesId);
-            // echo "<pre>";
-            // print_r($articleGetByCategoryId);
+            $articleLimit = $articleController->getLimitArticle($categoriesId);
+            $articleGetByCategoryId = $articleController->getByCategoryId($categoriesId, $offset);   
+            $totalArticle = $articleController->countArticle($categoriesId);
+            $countPage = $totalArticle[0][0]/ 4;
+            $numberOfPage = (ceil($countPage));
         }
     require_once($rootPath . '/controller/userController.php');
     $userController = new UserController();
+    
 ?>
 <div class="container-fluid pb-4 pt-4 paddding">
     <div class="container paddding">
@@ -41,6 +44,7 @@
                 </div>
                 <?php } ?>
             </div>
+
             <div class="col-md-3 animate-box fadeInRight animated-fast" data-animate-effect="fadeInRight">
                 <div>
                     <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Tags</div>
@@ -55,7 +59,7 @@
                     <div class="fh5co_heading fh5co_heading_border_bottom pt-3 py-2 mb-4">Most Popular</div>
                 </div>
                 <div class="row pb-3">
-                <?php foreach ($articleLimitId as $articleKey => $article) { ?>
+                <?php foreach ($articleLimit as $articleKey => $article) { ?>
                     <div class="col-5 align-self-center">
                         <img src="<?php echo $baseUrl . $article['image'] ?>" alt="img" class="fh5co_most_trading">
                     </div>
@@ -69,12 +73,9 @@
         </div>
         <div class="row mx-0">
             <div class="col-12 text-center pb-4 pt-4">
-                <a href="#" class="btn_mange_pagging"><i class="fa fa-long-arrow-left"></i>&nbsp;&nbsp; Previous</a>
-                <a href="#" class="btn_pagging">1</a>
-                <a href="#" class="btn_pagging">2</a>
-                <a href="#" class="btn_pagging">3</a>
-                <a href="#" class="btn_pagging">...</a>
-                <a href="#" class="btn_mange_pagging">Next <i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp; </a>
+                <?php for ($x = 1; $x <= $numberOfPage; $x++) { ?>    
+                <a href="categoryPage.php?category_id=<?php echo $_GET['category_id']?>&offset=<?php echo $x ?>" class="btn_pagging"><?php echo $x ?></a>   
+                <?php } ?>
              </div>
         </div>
     </div>
