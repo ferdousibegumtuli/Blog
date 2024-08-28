@@ -15,7 +15,8 @@ class ArticleController{
         string $article,
         int $category,
         int $tag,
-        int $status
+        int $status,
+        string $targetFile
     ): bool
     {
         $publishedAt = 'null';
@@ -24,7 +25,7 @@ class ArticleController{
             $publishedAt = date('Y-m-d h:i:s');    
             $publishedAt = "'$publishedAt'";    
         }
-       return $this->articleRepository->getByInput($subject,$article,$publishedAt,$category,$tag,$status);
+       return $this->articleRepository->storeData($subject,$article,$publishedAt,$category,$tag,$status,$targetFile);
     }
 
     public function edit(int $articleId): array
@@ -38,7 +39,8 @@ class ArticleController{
         int $category,
         int $tag,
         string $article,
-        int $status
+        int $status,
+        string $targetFile
     ): bool
     {
         $publishedAt = 'null';
@@ -47,7 +49,7 @@ class ArticleController{
             $publishedAt = date('Y-m-d h:i:s');    
             $publishedAt = "'$publishedAt'";    
         }
-       return $this->articleRepository->getByDb($articleId,$subject,$category,$tag,$article,$status,$publishedAt);
+       return $this->articleRepository->updateData($articleId,$subject,$category,$tag,$article,$status,$targetFile,$publishedAt);
     }
 
     public function delete(int $articleId): bool
@@ -64,5 +66,57 @@ class ArticleController{
         return 'Draft';
     }
 
+    public function getStatusByPublishedId():array
+    {
+        return $this->articleRepository->getStatusPublished();
+    }
+
+    public function getStatusByDraftId():array
+    {
+        return $this->articleRepository->getStatusDraft();
+    }
+
+    public function getLimitId():array
+    {
+        return $this->articleRepository->getId();
+    }
+
+    public function getLimitedId():array
+    {
+        return $this->articleRepository->getIdList();
+    }
+
+    public function getByCategoryIdAndOffset(int $categoriesId, int $offset):array
+    {
+        return $this->articleRepository->getArticlesByCategoryIdAndoffset($categoriesId, $offset);
+    }
+
+    public function getLimitArticle(int $categoriesId):array
+    {
+        return $this->articleRepository->getLimitArticlesByCategoryId($categoriesId);
+    }
+
+    public function getByArticleId(int $articleId):array
+    {
+        return $this->articleRepository->getArticleByArticleId($articleId);
+    }
+
+    public function getByTagIdAndOffset(int $tagId, int $offset):array
+    {
+        return $this->articleRepository->getArticleByTagIdAndOffset($tagId,$offset);
+    }
+
+    public function countArticleByCategoryId(int $categoriesId):array
+    {
+        return $this->articleRepository->totalArticle($categoriesId);
+    }
+
+    public function countArticleByTAgId(int $tagId):array
+    {
+        return $this->articleRepository->totalArticleByTagId($tagId);
+    }
+
+    
+    
 }
 ?>

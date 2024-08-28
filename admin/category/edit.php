@@ -1,5 +1,7 @@
 <?php
-    include('../layout/header.php');
+include('../layout/header.php');
+if($_SESSION['user'])
+{
     include('../layout/sidebar.php');
     require($rootPath . '/controller/categoryController.php');
 ?>
@@ -23,24 +25,31 @@ if(isset($_POST['submit'])){
 }
 ?>
 <div id="main">
-    <div class="card-body">
-        <form action = "edit.php?id=<?php echo $categoryGetById[0]['id']?>" method ="post" class="form form-vertical">
-            <div class="form-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label for="first-name-vertical">Category</label>
-                            <input type="text" id="first-name-vertical" class="form-control" name="categoryname" value="<?php echo $categoryGetById[0]['category']?>"/>
+    <div class="col-md-6">
+        <div class="card-body">
+            <form action = "edit.php?id=<?php echo $categoryGetById[0]['id']?>" method ="post" class="form form-vertical">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="first-name-vertical">Category</label>
+                                <input type="text" id="first-name-vertical" class="form-control" name="categoryname" value="<?php echo $categoryGetById[0]['category']?>"/>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-end">
+                            <input type="submit" class="btn btn-primary me-1 mb-1" name="submit" value="Submit"/>
                         </div>
                     </div>
-                    <div class="col-12 d-flex justify-content-end">
-                        <input type="submit" class="btn btn-primary me-1 mb-1" name="submit" value="Submit"/>
-                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 <?php
     include('../layout/footer.php');
+}
+else
+{
+       header("location:../login/index.php");
+}
 ?>

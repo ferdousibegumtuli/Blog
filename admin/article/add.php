@@ -1,34 +1,56 @@
 <?php
-    include('../layout/header.php');
+include('../layout/header.php');
+if($_SESSION['user'])
+{
     include('../layout/sidebar.php');
-?>
-<?php
+    require_once ("../../controller/articleController.php");
     require_once($rootPath . '/controller/categoryController.php');
     require_once($rootPath . '/controller/tagController.php');
+    require_once ("../../controller/stringController.php");
     $categoryController = new CategoryController();
     $categories = $categoryController->index();
     $tagController = new TagController();
     $tags = $tagController->index();
+    $stringController = new StringController();
+    
     if(isset($_POST["submit"])){
-        require_once ("../../controller/articleController.php");
         $subject = $_POST["titleName"];
         $category = $_POST["categoryId"];
         $tag = $_POST["tagId"];
         $article = $_POST["description"];
         $status = $_POST["status"];
         $articleController = new ArticleController();
-        $articleIsSaved = $articleController->insert($subject,$article,$category,$tag,$status);
+        $targetFile = '';
+        if($_FILES["articleImage"]["tmp_name"])
+        {
+            $fileUploadLocation =  '/public/assets/images/fileUpload/';
+            $n = 5;
+            $randomString = $stringController->getRandomString($n);
+            $targetFile = $fileUploadLocation . ($randomString) .'.jpg';
+
+             //delete existing file
+          
+        }
+        $articleIsSaved = $articleController->insert($subject,$article,$category,$tag,$status,$targetFile);
         if($articleIsSaved){
             $_SESSION['addData'] = [
                 'msg' => 'Article Add Successfully',
                 'type' => 'success'
-            ];   
+            ];
+
+            if($_FILES["articleImage"]["tmp_name"])
+            {
+               
+                $tempName = $_FILES["articleImage"]["tmp_name"];
+                move_uploaded_file($tempName, $rootPath .$targetFile);
+            }
+           
         }  
-        header ("Location: index.php"); 
+        header ("Location: index.php");
     } 
 ?>
 <div id="main">
-<form action = "add.php" method = "post">
+<form action = "add.php" method = "post" enctype="multipart/form-data">
     <h4 class="card-title">Article</h4>
         <div class="col-md-6">
             <div class="form-group row align-items-center">
@@ -94,7 +116,7 @@
         </div>
         <div class="col-md-6">
             <div class="mb-3">
-                <input class="form-control" type="file" id="formFile">
+                <input class="form-control" type="file" name="articleImage"  id="formFile" >
             </div>
         </div>
         <div class="col-md-6">
@@ -120,5 +142,10 @@
     </form>
 </div>
 <?php
-    include('../layout/footer.php');
+include('../layout/footer.php');
+}
+else
+{
+    header("location:../login/index.php");
+}
 ?>

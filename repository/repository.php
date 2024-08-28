@@ -22,9 +22,9 @@ class Repository{
         return $this->connection->exec($sql);
     }
 
-    public function getById(string $tableName, string $columnName, int $idName) :array
+    public function getById(string $columnName, string $tableName, int $idName) :array
     {
-        $sql = "SELECT $tableName  FROM `$columnName` WHERE id='$idName'";
+        $sql = "SELECT $columnName  FROM `$tableName` WHERE id='$idName'";
         $prepareQuery = $this->connection->query($sql);
         return $prepareQuery->fetchAll();
     }

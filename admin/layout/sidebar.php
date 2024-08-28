@@ -28,14 +28,26 @@
                         </li>
                         <li class="sidebar-item  ">
                             <a href="<?php echo $baseUrl ?>/admin/tag" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
+                            <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Tags</span>
                             </a>
                         </li>
                         <li class="sidebar-item  ">
                             <a href="<?php echo $baseUrl ?>/admin/article" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
+                            <i class="bi bi-pen-fill"></i>
                                 <span>Article</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  ">
+                            <a href="<?php echo $baseUrl ?>/admin/user" class='sidebar-link'>
+                            <i class="bi bi-person-badge-fill"></i>
+                                <span>User</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  ">
+                            <a href="<?php echo $baseUrl ?>/admin/logout" class='sidebar-link'>
+                            <i class="bi bi-x-octagon-fill"></i>
+                                <span>Log Out</span>
                             </a>
                         </li>
                     </ul>
