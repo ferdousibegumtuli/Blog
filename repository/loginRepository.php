@@ -1,0 +1,19 @@
+<?php
+require_once($rootPath . "/config/DbConfig.php");
+
+class LoginRepository{
+    private $connection = null;
+    function __construct()
+    {
+        $dbConfig = new Dbconfig();
+        $this->connection = $dbConfig->getConnection();
+    }
+    public function getUserByUserAndPassword(string $userName,string $password): array {
+        $sql = "SELECT * FROM `users` WHERE user_name='$userName'";
+        $prepareQuery = $this->connection->query($sql);
+        return $prepareQuery->fetchAll();    
+    }
+}
+
+
+?>
