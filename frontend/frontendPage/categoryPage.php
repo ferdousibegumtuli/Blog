@@ -10,8 +10,8 @@
             $offset = $_GET['offset'] ?? 1;
             $articleController = new ArticleController();
             $articleLimit = $articleController->getLimitArticle($categoriesId);
-            $articleGetByCategoryId = $articleController->getByCategoryId($categoriesId, $offset);   
-            $totalArticle = $articleController->countArticle($categoriesId);
+            $articleGetByCategoryId = $articleController->getByCategoryIdAndOffset($categoriesId, $offset);   
+            $totalArticle = $articleController->countArticleByCategoryId($categoriesId);
             $countPage = $totalArticle[0][0]/ 4;
             $numberOfPage = (ceil($countPage));
         }

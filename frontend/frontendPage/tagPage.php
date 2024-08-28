@@ -7,9 +7,13 @@
     require_once($rootPath . '/controller/articleController.php');
         if(isset($_GET['tag_id'])){
             $tagId = $_GET['tag_id'];
+            $offset = $_GET['offset'] ?? 1;
             $articleController = new ArticleController();
-            $articleGetByTagId = $articleController->getByTagId($tagId);
+            $articleGetByTagId = $articleController->getByTagIdAndOffset($tagId,$offset);
             $articles = $articleController->getLimitId();
+            $totalArticle = $articleController->countArticleByTAgId($tagId);
+            $countPage = $totalArticle[0][0]/4;
+            $numberOfPage = (ceil($countPage));
         }
     require_once($rootPath . '/controller/userController.php');
     $userController = new UserController();
@@ -67,12 +71,9 @@
         </div>
         <div class="row mx-0">
             <div class="col-12 text-center pb-4 pt-4">
-                <a href="#" class="btn_mange_pagging"><i class="fa fa-long-arrow-left"></i>&nbsp;&nbsp; Previous</a>
-                <a href="#" class="btn_pagging">1</a>
-                <a href="#" class="btn_pagging">2</a>
-                <a href="#" class="btn_pagging">3</a>
-                <a href="#" class="btn_pagging">...</a>
-                <a href="#" class="btn_mange_pagging">Next <i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp; </a>
+                <?php for($x = 1; $x <= $numberOfPage; $x++){ ?>
+                <a href="tagPage.php?tag_id=<?php echo $_GET['tag_id'] ?>&offset=<?php echo $x ?>" class="btn_pagging"><?php echo $x ?></a>
+                <?php } ?>
              </div>
         </div>
     </div>

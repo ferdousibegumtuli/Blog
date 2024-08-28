@@ -86,9 +86,9 @@ class ArticleController{
         return $this->articleRepository->getIdList();
     }
 
-    public function getByCategoryId(int $categoriesId, int $offset):array
+    public function getByCategoryIdAndOffset(int $categoriesId, int $offset):array
     {
-        return $this->articleRepository->getArticlesByCategoryId($categoriesId, $offset);
+        return $this->articleRepository->getArticlesByCategoryIdAndoffset($categoriesId, $offset);
     }
 
     public function getLimitArticle(int $categoriesId):array
@@ -101,15 +101,22 @@ class ArticleController{
         return $this->articleRepository->getArticleByArticleId($articleId);
     }
 
-    public function getByTagId(int $tagId):array
+    public function getByTagIdAndOffset(int $tagId, int $offset):array
     {
-        return $this->articleRepository->getArticleByTagId($tagId);
+        return $this->articleRepository->getArticleByTagIdAndOffset($tagId,$offset);
     }
 
-    public function countArticle(int $categoriesId):array
+    public function countArticleByCategoryId(int $categoriesId):array
     {
         return $this->articleRepository->totalArticle($categoriesId);
     }
+
+    public function countArticleByTAgId(int $tagId):array
+    {
+        return $this->articleRepository->totalArticleByTagId($tagId);
+    }
+
+    
     
 }
 ?>

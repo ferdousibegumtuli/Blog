@@ -4,8 +4,8 @@ if($_SESSION['user'])
 {
     include('../layout/sidebar.php');
     require($rootPath . '/controller/categoryController.php');
-    $getAllFromDb = new CategoryController();
-    $categories = $getAllFromDb->index();
+    $categoryController = new CategoryController();
+    $categories = $categoryController->index();
 ?>
     <div id="main">
         <div class="col-md-6">
